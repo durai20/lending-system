@@ -62,10 +62,12 @@ function cancel() {
 
 function searchCustomer(text) {
   var xhttp = new XMLHttpRequest();
+  var searchText = document.getElementById("searchInput").value;
   xhttp.onreadystatechange = function() {
-    if(xhttp.readyState = 4 && xhttp.status == 200)
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
       document.getElementById('customers_div').innerHTML = xhttp.responseText;
+    }
   };
-  xhttp.open("GET", "php/manage_customer.php?action=search&text=" + text, true);
+  xhttp.open("GET", "search_customer.php?action=search&text=" + searchText, true);
   xhttp.send();
 }
