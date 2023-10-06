@@ -18,10 +18,9 @@
     if(isset($_GET["action"]) && $_GET["action"] == "update") {
       $id = $_GET["id"];
       $name = ucwords($_GET["name"]);
-      $contact_number = $_GET["contact_number"];
-      $address = ucwords($_GET["address"]);
+      $password = ucwords($_GET["password"]);
       
-      updateCustomer($id, $name, $contact_number, $address);
+      updateCustomer($id, $name, $password);
     }
 
     if(isset($_GET["action"]) && $_GET["action"] == "cancel")
@@ -56,10 +55,10 @@
       <td><?php echo $row['PASSWORD']; ?></td>
       
       <td>
-        <button href="" class="btn btn-info btn-sm" onclick="editCustomer(<?php echo $row['ID']; ?>);">
+        <button href="" class="btn btn-info btn-sm" onclick="editCustomer('<?php echo $row['ID']; ?>');">
           <i class="fa fa-pencil"></i>
         </button>
-        <button class="btn btn-danger btn-sm" onclick="deleteCustomer(<?php echo $row['ID']; ?>);">
+        <button class="btn btn-danger btn-sm" onclick="deleteCustomer('<?php echo $row['ID']; ?>');">
           <i class="fa fa-trash"></i>
         </button>
       </td>
@@ -67,35 +66,35 @@
     <?php
   }
 
-function showEditOptionsRow($seq_no, $row) {
-  ?>
-  <tr>
-    <td><?php echo $seq_no; ?></td>
-    <td><?php echo $row['ID'] ?></td>
-    <td>
-      <input type="text" class="form-control" value="<?php echo $row['NAME']; ?>" placeholder="Name" id="customer_name" onkeyup="validateName(this.value, 'name_error');">
-      <code class="text-danger small font-weight-bold float-right" id="name_error" style="display: none;"></code>
-    </td>
-    <td>
-      <input type="number" class="form-control" value="<?php echo $row['PASSWORD']; ?>" placeholder="password" id="customer_passowrd">
-      <code class="text-danger small font-weight-bold float-right" id="contact_number_error" style="display: none;"></code>
-    </td>
-   
-    <td>
-      <button href="" class="btn btn-success btn-sm" onclick="updateCustomer(<?php echo $row['ID']; ?>);">
-        <i class="fa fa-edit"></i>
-      </button>
-      <button class="btn btn-danger btn-sm" onclick="cancel();">
-        <i class="fa fa-close"></i>
-      </button>
-    </td>
-  </tr>
-  <?php
-}
-
-function updateCustomer($id, $name, $contact_number, $address) {
+  function showEditOptionsRow($seq_no, $row) {
+    ?>
+    <tr>
+      <td><?php echo $seq_no; ?></td>
+      <td><?php echo $row['ID'] ?></td>
+      <td>
+        <input type="text" class="form-control" value="<?php echo $row['NAME']; ?>" placeholder="Name" id="customer_name_<?php echo $row['ID']; ?>" onkeyup="validateName(this.value, 'name_error_<?php echo $row['ID']; ?>');">
+        <code class="text-danger small font-weight-bold float-right" id="name_error_<?php echo $row['ID']; ?>" style="display: none;"></code>
+      </td>
+      <td>
+        <input type="text" class="form-control" value="<?php echo $row['PASSWORD']; ?>" placeholder="password" id="customer_password_<?php echo $row['ID']; ?>" onkeyup="validatePassword(this.value, 'password_error_<?php echo $row['ID']; ?>');">
+        <code class="text-danger small font-weight-bold float-right" id="password_error_<?php echo $row['ID']; ?>" style="display: none;"></code>
+      </td>
+     
+      <td>
+        <button href="" class="btn btn-success btn-sm" onclick="updateCustomer(<?php echo $row['ID']; ?>);">
+          <i class="fa fa-edit"></i>
+        </button>
+        <button class="btn btn-danger btn-sm" onclick="cancel();">
+          <i class="fa fa-close"></i>
+        </button>
+      </td>
+    </tr>
+    <?php
+  }
+  
+function updateCustomer($id, $name, $password) {
   require "db_connection.php";
-  $query = "UPDATE customers SET NAME = '$name', CONTACT_NUMBER = '$contact_number', ADDRESS = '$address' WHERE ID = $id";
+  $query = "UPDATE customers SET NAME = '$name',  PASSWORD = '$password' WHERE ID = $id";
   $result = mysqli_query($con, $query);
   if(!empty($result))
     showCustomers(0);

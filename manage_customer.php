@@ -34,7 +34,7 @@
 
           <div class="col-md-12 form-group form-inline">
             <label class="font-weight-bold" for="">Search :&emsp;</label>
-            <input type="text" class="form-control" id="" placeholder="Search Students" onkeyup="searchCustomer(this.value);">
+            <input type="text" class="form-control" id="" placeholder="Search Students Id" onkeyup="searchCustomer(this.value);">
           </div>
 
           <div class="col col-md-12">
@@ -65,7 +65,7 @@
 
         </div>
         <!-- form content end -->
-        <hr style="border-top: 2px solid #ff5252;">
+        <hr style="border-top: 2px solid #000000;">
       </div>
     </div>
   </body>
