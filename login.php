@@ -17,9 +17,9 @@
     if (xhttp.readyState === 4 && xhttp.status === 200) {
       var responseText = xhttp.responseText;
       if (responseText === "true") {
-        window.location.href = "http://localhost/lending-system/home.php";
+        window.location.href = "http://localhost/lending/home.php";
       } else {
-        window.location.href = "http://localhost/lending-system/index.php";
+        window.location.href = "http://localhost/lending/index.php";
       }
     }
   };

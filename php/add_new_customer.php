@@ -1,55 +1,76 @@
 <?php
-// Include your database connection file (db_connection.php) if needed
+// Include your database connection file (config.php or similar)
 include("config.php");
 
+// Start a session if not already started
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Get the action sent via POST to determine the operation
-    $action = $_POST['action'];
+    // Get the data sent via POST
+    $studentName = mysqli_real_escape_string($con, $_POST['studentName']);
+    $studentID = mysqli_real_escape_string($con, $_POST['studentID']);
+    $password = mysqli_real_escape_string($con, $_POST['password']);
 
-    if ($action === 'addStudent') {
-        // Handle student data insertion here
-        $studentName = mysqli_real_escape_string($db, $_POST['studentName']);
-        $studentID = mysqli_real_escape_string($db, $_POST['studentID']);
-        $password = mysqli_real_escape_string($db, $_POST['password']);
+    // You can add additional validation and sanitization here if needed
 
-        // Sanitize and validate data if necessary
-        // ...
+    // Check if the student ID already exists in the database
+$checkQuery = "SELECT id FROM customers WHERE id = ?";
+$checkStmt = mysqli_prepare($con, $checkQuery);
 
-        // Perform the database insertion
-        $query = "INSERT INTO customers (name, id, password) VALUES (?, ?, ?)";
+if ($checkStmt) {
+    mysqli_stmt_bind_param($checkStmt, "s", $studentID);
+    mysqli_stmt_execute($checkStmt);
+    mysqli_stmt_store_result($checkStmt);
 
-        // Use prepared statements to prevent SQL injection
-        $stmt = mysqli_prepare($db, $query);
+    if (mysqli_stmt_num_rows($checkStmt) > 0) {
+        // Duplicate student ID found, handle accordingly (e.g., display an error message)
+        $response = [
+            'status' => 'error',
+            'message' => 'Student ID already exists.'
+        ];
+    } else {
+        // No duplicate found, proceed with insertion
+        $query = "INSERT INTO customers  (name, id, password) VALUES (?, ?, ?)";
+        $stmt = mysqli_prepare($con, $query);
+
         if ($stmt) {
             mysqli_stmt_bind_param($stmt, "sss", $studentName, $studentID, $password);
 
             if (mysqli_stmt_execute($stmt)) {
-                $res = [
-                    'status' => 200,
-                    'message' => "Student $studentName added successfully!"
+                // Insertion was successful
+                $response = [
+                    'status' => 'success',
+                    'message' => 'Student added successfully.'
                 ];
-                echo json_encode($res);
-                return;
             } else {
-                $res = [
-                    'status' => 300,
-                    'message' => "Failed to add student: " . mysqli_error($db)
+                // Insertion failed
+                $response = [
+                    'status' => 'error',
+                    'message' => 'Failed to add student: ' . mysqli_error($con)
                 ];
-                echo json_encode($res);
-                return;
             }
 
             mysqli_stmt_close($stmt);
         } else {
-            $res = [
-                'status' => 300,
-                'message' => "Error in preparing SQL statement: " . mysqli_error($db)
+            // Statement preparation failed
+            $response = [
+                'status' => 'error',
+                'message' => 'Error in preparing SQL statement: ' . mysqli_error($con)
             ];
-            echo json_encode($res);
-            return;
         }
     }
+
+    mysqli_stmt_close($checkStmt);
+} else {
+    // Check statement preparation failed
+    $response = [
+        'status' => 'error',
+        'message' => 'Error in preparing check statement: ' . mysqli_error($con)
+    ];
+}
+
+// Send the JSON response
+echo json_encode($response);
+
 }
 ?>

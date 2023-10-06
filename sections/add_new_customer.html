@@ -1,6 +1,6 @@
 <!-- customer details content -->
 <!-- customer name control -->
-<div>
+
   
   <form id="lform">
 <div class="row col col-md-12">
@@ -53,7 +53,7 @@
   -->
 </div>
 </form>
-</div>
+
 <!-- result message -->
 <div id="customer_acknowledgement" class="col-md-12 h5 text-success font-weight-bold text-center" style="font-family:'Times New Roman', Times, serif;padding-top: 10%;"></div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -77,7 +77,7 @@ $(document).ready(function() {
         // Send an AJAX request to the PHP script
         $.ajax({
             type: 'POST',
-            url: 'add_new_customer.php', // Update the path based on your directory structure
+            url: 'php/add_new_customer.php', // Update the path based on your directory structure
             data: formData,
             processData: false,
             contentType: false,
