@@ -3,10 +3,10 @@ function deleteCustomer(id) {
   if(confirmation) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
-      if(xhttp.readyState = 4 && xhttp.status == 200)
+      if(xhttp.readyState === 4 && xhttp.status == 200)
         document.getElementById('customers_div').innerHTML = xhttp.responseText;
     };
-    xhttp.open("GET", "php/manage_customer.php?action=delete&id=" + id, true);
+    xhttp.open("GET", "php/manage_customer.php?action=delete&id='" + id + "'", true);
     xhttp.send();
   }
 }

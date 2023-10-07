@@ -81,7 +81,7 @@
       </td>
      
       <td>
-        <button href="" class="btn btn-success btn-sm" onclick="updateCustomer(<?php echo $row['ID']; ?>);">
+        <button href="" class="btn btn-success btn-sm" onclick="updateCustomer('<?php echo $row['ID']; ?>');">
           <i class="fa fa-edit"></i>
         </button>
         <button class="btn btn-danger btn-sm" onclick="cancel();">
@@ -94,8 +94,9 @@
   
 function updateCustomer($id, $name, $password) {
   require "db_connection.php";
-  $query = "UPDATE customers SET NAME = '$name',  PASSWORD = '$password' WHERE ID = $id";
-  $result = mysqli_query($con, $query);
+  $stmt = mysqli_prepare($con, "UPDATE customers SET NAME = ?, PASSWORD = ? WHERE ID = ?");
+  mysqli_stmt_bind_param($stmt, "sss", $name, $password, $id);
+  $result = mysqli_stmt_execute($stmt);
   if(!empty($result))
     showCustomers(0);
 }

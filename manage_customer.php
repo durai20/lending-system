@@ -34,7 +34,7 @@
 
         <div class="col-md-12 form-group form-inline">
     <label class="font-weight-bold" for="">Search :&emsp;</label>
-    <input type="text" class="form-control" id="searchInput" placeholder="Search Students Name ">
+    <input type="text" class="form-control" id="searchInput" placeholder="Search Students Id ">
     <button class="btn btn-primary" onclick="searchCustomer()" style="margin-left: 20px;">Search</button>
         </div>
 
