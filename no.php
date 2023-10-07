@@ -65,12 +65,8 @@ if ($result->num_rows > 0) {
     echo '<td>' . $row[1] . '</td>';
     echo '<td>' . $row[2] . '</td>';
     echo '<td>';
-    echo '<button class="btn btn-info btn-sm" onclick="editCustomer(\'' . $row[0] . '\', \'' . $row[1] . '\')">';
-    echo ' <i class="fa fa-pencil"></i>';
-    echo '</button>';
-    echo '<button class="btn btn-danger btn-sm" style="margin-left:5px;" onclick="deleteCustomer(\'' . $row[0] . '\')">';
-    echo ' <i class="fa fa-trash"></i>';
-    echo '</button>';
+    echo '<button class="btn btn-info btn-sm" onclick="editCustomer(\'' . $row[0] . '\', \'' . $row[1] . '\')">Edit</button>';
+    echo '<button class="btn btn-danger btn-sm" onclick="deleteCustomer(\'' . $row[0] . '\')">Delete</button>';
     echo '</td>';
     echo '</tr>';
     echo '</table>';
