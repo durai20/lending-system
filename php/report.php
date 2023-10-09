@@ -68,6 +68,7 @@ function showSales($start_date, $end_date) {
       
       <th>Students Name</th>
       <th>Total Amount</th>
+      <th>Total Amount</th>
     </tr>
   </thead>
   <tbody>
