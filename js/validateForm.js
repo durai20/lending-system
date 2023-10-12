@@ -52,6 +52,8 @@ function validatePassword(password, error) {
   }
 }
 
+
+
 function validateAddress(address, error) {
   var result = document.getElementById(error);
   result.style.display = "block";

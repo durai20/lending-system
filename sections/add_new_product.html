@@ -1,0 +1,119 @@
+<!-- customer details content -->
+<!-- customer name control -->
+
+  
+<form id="lform">
+  <!-- Product Name -->
+  <div class="row col col-md-12">
+    <div class="col col-md-12 form-group">
+        <label class="font-weight-bold" for="product_name">Product Name:</label>
+        <input type="text" class="form-control" placeholder="Product Name" id="product_name" required>
+        <code class="text-danger small font-weight-bold float-right" id="product_name_error" style="display: none;"></code>
+    </div>
+</div>
+
+<!-- Product Quantity -->
+<div class="row col col-md-12">
+    <div class="col col-md-12 form-group">
+        <label class="font-weight-bold" for="product_quantity">Product Quantity:</label>
+        <input type="number" class="form-control" placeholder="Product Quantity" id="product_quantity" required>
+        <code class="text-danger small font-weight-bold float-right" id="product_quantity_error" style="display: none;"></code>
+    </div>
+</div>
+
+<!-- Product Price -->
+<div class="row col col-md-12">
+    <div class="col col-md-12 form-group">
+        <label class="font-weight-bold" for="product_price">Product Price:</label>
+        <input type="number" class="form-control" placeholder="Product Price" id="product_price" required step="0.01">
+        <code class="text-danger small font-weight-bold float-right" id="product_price_error" style="display: none;"></code>
+    </div>
+</div>
+  
+  <!-- customer contact number control -->
+  
+  
+  <!-- customes's doctor name -->
+  
+  <!-- customer details content end -->
+  
+  <!-- horizontal line -->
+  <div class="col col-md-12">
+    <hr class="col-md-12 float-left" style="padding: 0px; width: 100%; border-top: 2px solid  #02b6ff;">
+  </div>
+  
+  <!-- form submit button -->
+  <div class="row col col-md-12">
+    &emsp;
+    <div class="form-group m-auto">
+      <button class="btn btn-primary" type="submit">ADD</button>
+    </div>
+    <!--
+    &emsp;
+    <div class="form-group">
+      <button class="btn btn-success form-control">Save and Add Another</button>
+    </div>
+    -->
+  </div>
+  </form>
+  
+  <!-- result message -->
+  <div id="customer_acknowledgement" class="col-md-12 h5 text-success font-weight-bold text-center" style="font-family:'Times New Roman', Times, serif;padding-top: 10%;"></div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.24/sweetalert2.all.js"></script>
+  <script>
+    $(document).ready(function () {
+        $("#lform").submit(function (e) {
+            e.preventDefault();
+    
+            // Get the input values for the new fields
+            const product_name = $("#product_name").val().trim();
+            const product_quantity = $("#product_quantity").val().trim();
+            const product_price = $("#product_price").val().trim();
+    
+            // Create a FormData object to send data to the PHP script
+            const formData = new FormData();
+            formData.append('product_name', product_name);
+            formData.append('product_quantity', product_quantity);
+            formData.append('product_price', product_price);
+          
+            // Send an AJAX request to the PHP script
+            $.ajax({
+                type: 'POST',
+                url: 'php/add_new_product.php',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                  //console.log(response);
+                  response = JSON.parse(response); 
+                    if (response.status == 'success') {
+                      
+                        const acknowledgement = document.getElementById('customer_acknowledgement');
+                        acknowledgement.textContent =  response.message;
+                    } else {
+                      
+                        // Display an error message if the product name already exists
+                        const acknowledgement = document.getElementById('customer_acknowledgement');
+                        acknowledgement.textContent = response.message;
+                    }
+                },
+                error: function () {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'An error occurred during product addition.'
+                    });
+                }
+            });
+    
+            // Reset the form fields after submission
+            $("#product_name").val('');
+            $("#product_quantity").val('');
+            $("#product_price").val('');
+        });
+    });
+    </script>
+    
+  
+  

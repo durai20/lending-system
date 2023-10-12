@@ -11,7 +11,7 @@
     }
 
     if(isset($_GET["action"]) && $_GET["action"] == "edit") {
-      $id = $_GET["id"];
+      $id = $_GET["id"];  
       showCustomers($id);
     }
 

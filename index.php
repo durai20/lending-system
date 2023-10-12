@@ -77,8 +77,7 @@
                             window.location.href = "home.php";
                         });
                     }
-                    else if(response.status === 3
-                        00){
+                    else if(response.status === 300){
                       
                         Swal.fire({
                             icon: 'success',

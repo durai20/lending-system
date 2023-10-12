@@ -132,8 +132,9 @@
             
             createSection2('handshake', 'add_customer.php', 'Add New Student');
             createSection2('book', 'sales_report.php', 'Sales Report');
-            createSection2('book', 'manage_customer.php', 'Mangage Student');
-
+            createSection2('book', 'manage_customer.php', 'Manage Student');
+            createSection2('book', 'add_product.php', 'Add Product');
+            createSection2('book', 'manage_purchase.php', 'Manage Products');
          
           ?>
 

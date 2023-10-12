@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'message' => 'Invalid username or password'
         ];
         echo json_encode($res);
-        return;
+        return ;
     }
 }
 ?>

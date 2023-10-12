@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/sidenav.css">
     <link rel="stylesheet" href="css/home.css">
-    <script src="js/report.js"></script>
     <script src="js/restrict.js"></script>
   </head>
   <body>
@@ -49,7 +48,7 @@
             <div id="print_content" class="table-responsive">
             	<table class="table table-bordered table-striped table-hover" id="sales_report_div">
                 <?php
-                require "php/report.php";
+                require "php/manage_purchase.php";
                 showSales("", "");
                 ?>
             	</table>

@@ -1,8 +1,18 @@
+<?php
+session_start();
+// If the user is not logged in redirect to the login page...
+if (!isset($_SESSION['loggedin'])) {
+    header('Location: index.php');
+    exit();
+} else {
+    $user_id = $_SESSION['login_user'];
+}
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Admin Profile</title>
+    <title>Student   Profile</title>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 		<script src="bootstrap/js/jquery.min.js"></script>
 		<script src="bootstrap/js/bootstrap.min.js"></script>
@@ -11,54 +21,61 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/sidenav.css">
     <link rel="stylesheet" href="css/home.css">
-    <script src="js/my_profile.js"></script>
-    <script src="js/validateForm.js"></script>
+    <script src="js/my_profilest.js"></script>
+    <script src="js/validateFormst.js"></script>
     <script src="js/restrict.js"></script>
   </head>
   <body>
     <!-- including side navigations -->
-    <?php include("sections/sidenav.html"); ?>
+    <?php include("sections/sidenavst.html"); ?>
     <div class="container-fluid">
       <div class="container">
         <!-- header section -->
         <?php
-          require "php/header.php";
-          createHeader('user', 'Profile', 'Manage Admin Details');
-          // header section end
-          require "php/db_connection.php";
-          
-            $query = "SELECT * FROM admin_credentials";
-            $query_run = mysqli_query($con, $query);
-            if ($query_run && mysqli_num_rows($query_run) == 1) {
-              $student = mysqli_fetch_array($query_run);
-          
-              $pharmacy_name= $student['PHARMACY_NAME'];
-              $email= $student['EMAIL'];
-              $address  = $student['ADDRESS'];
-              $contact_number = $student['CONTACT_NUMBER'];
-              $username = $student['USERNAME'];
+// Include necessary files and establish a database connection
+require "php/headerst.php";
+createHeader('user', 'Profile', 'Student Details');
+require "db_connection.php";
 
-              
-          }
-        ?>
+
+
+    // Construct the SQL query to fetch the user's profile
+    $query = "SELECT * FROM customers WHERE ID = '$user_id'";
+    
+    // Execute the query
+    $query_run = mysqli_query($con, $query);
+
+    // Check if the query was successful and fetched a user's profile
+    if ($query_run && mysqli_num_rows($query_run) > 0) {
+        // Fetch the user's profile data
+        $student = mysqli_fetch_array($query_run);
+        
+        // Assign the fetched data to variables
+        $pharmacy_name = $student['ID'];
+        $email = $student['EMAIL'];
+        $contact_number = $student['CONTACT_NUMBER'];
+        $username = $student['NAME'];
+        
+        // Now you can use these variables to display the user's profile
+    } else {
+        // Handle the case where the user ID doesn't exist in the database
+        echo "User not found.";
+    }
+
+?>
+
         <div class="row">
           <div class="row col col-md-6">
-
+            
             <div class="row col col-md-12">
               <div class="col col-md-12 form-group">
-                <label class="font-weight-bold" for="pharmacy_name">Admin :</label>
-                <input id="pharmacy_name" type="text" class="form-control" value="<?php echo $pharmacy_name; ?>" placeholder="Admin name" onkeyup="validateName(this.value, 'pharmacy_name_error');" disabled>
+                <label class="font-weight-bold" for="pharmacy_name">Student ID:</label>
+                <input id="pharmacy_name" type="text" class="form-control" value="<?php echo $pharmacy_name; ?>" placeholder="Student Id"  disabled>
                 <code class="text-danger small font-weight-bold float-right mb-2" id="pharmacy_name_error" style="display: none;"></code>
               </div>
             </div>
 
-            <div class="row col col-md-12">
-              <div class="col col-md-12 form-group">
-                <label class="font-weight-bold" for="address">Address :</label>
-                <textarea id="address" class="form-control" placeholder="address" onkeyup="validateAddress(this.value, 'address_error');" style="max-height: 100px;" disabled><?php echo $address; ?></textarea>
-                <code class="text-danger small font-weight-bold float-right mb-2" id="address_error" style="display: none;"></code>
-              </div>
-            </div>
+       
 
             <div class="row col col-md-12">
               <div class="col col-md-12 form-group">
@@ -96,7 +113,7 @@
                 <button class="btn btn-primary form-control font-weight-bold" onclick="edit();">EDIT</button>
               </div>
               <div id="password_button" class="col col-md-4 form-group float-right">
-                <a href="change_password.php" class="btn btn-warning form-control font-weight-bold">Change </a>
+              <button type="button" onclick="window.location.href='change_passwordst.php'" class="btn btn-warning form-control font-weight-bold" >Change pass</button>
               </div>
             </div>
 
