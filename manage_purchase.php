@@ -33,11 +33,7 @@
         <!-- form content -->
         <div class="row">
 
-        <div class="col-md-12 form-group form-inline">
-    <label class="font-weight-bold" for="">Search :&emsp;</label>
-    <input type="text" class="form-control" id="searchInput" placeholder="Search  ">
-    <button class="btn btn-primary" onclick="searchCustomer()" style="margin-left: 20px;">Search</button>
-        </div>
+        
 
 
           <div class="col col-md-12">
@@ -55,7 +51,7 @@
                     <th style="width: 15%;">Product Price</th>
                     <th style="width: 15%;">Total Price</th>
 
-                    <th style="width: 15%;">Action  </th>
+                 
             			</tr>
             		</thead>
             		<tbody id="customers_div">

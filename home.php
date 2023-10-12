@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Dashboard - Home</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 		<script src="bootstrap/js/jquery.min.js"></script>
 		<script src="bootstrap/js/bootstrap.min.js"></script>
@@ -65,54 +65,16 @@
                     </div>
                   </div>
                 ';
-              }
+              }     
               
             ?>
 
           </div>
 
-          <div class="col col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding: 7px 0; margin-left:25px; margin-right:25px">
-            <div class="todays-report">
-              <div class="h5">Todays Report</div>
-              <table class="table table-bordered table-striped table-hover">
-                <tbody>
-                  <?php
-                    require 'php/db_connection.php';
-                    if($con) {
-                      $date = date('Y-m-d');
-                  ?>
-                  <tr>
-                    <?php
-                      $total = 0;
-                      $query = "SELECT NET_TOTAL FROM invoices WHERE INVOICE_DATE = '$date'";
-                      $result = mysqli_query($con, $query);
-
-                      while($row = mysqli_fetch_array($result))
-                        $total = $total + $row['NET_TOTAL'];
-                    ?>
-                    <th>Total Sales</th>
-                    <th class="text-success">Rs. <?php echo $total; ?></th>
-                  </tr>
-                  <tr>
-                    <?php
-                      //echo $date;
-                      $total = 0;
-                      $query = "SELECT TOTAL_AMOUNT FROM purchases WHERE PURCHASE_DATE = '$date'";
-                      $result = mysqli_query($con, $query);
-                      while($row = mysqli_fetch_array($result))
-                        $total = $total + $row['TOTAL_AMOUNT'];
-                    }
-                    ?>
-                   
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+              
 
         </div>
 
-        <hr style="border-top: 2px solid #ff5252;">
 
         <div class="row">
 
@@ -131,10 +93,12 @@
             }
             
             createSection2('handshake', 'add_customer.php', 'Add New Student');
-            createSection2('book', 'sales_report.php', 'Sales Report');
+            
             createSection2('book', 'manage_customer.php', 'Manage Student');
             createSection2('book', 'add_product.php', 'Add Product');
-            createSection2('book', 'manage_purchase.php', 'Manage Products');
+            createSection2('book', 'manage_purchase.php', 'Products Available');
+            createSection2('book', 'purchase_report.php', 'Sales Report');
+
          
           ?>
 

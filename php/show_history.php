@@ -39,11 +39,11 @@ function showCustomers($id)
     require "db_connection.php";
     if ($con) {
         $seq_no = 0;
-        $query = "SELECT * FROM product";
+        $query = "SELECT * FROM purchase_history";
         $result = mysqli_query($con, $query);
         while ($row = mysqli_fetch_array($result)) {
             $seq_no++;
-            if ($row['id'] == $id) {
+            if ($row['no'] == $id) {
                 showEditOptionsRow($seq_no, $row);
             } else {
                 showCustomerRow($seq_no, $row);
@@ -56,17 +56,22 @@ function showCustomerRow($seq_no, $row)
 {
     ?>
     <tr>
-    <td><?php echo $row['id'] ?></td>
+        <td><?php echo $row['no'] ?></td>
+        
+        <td><?php echo $row['id']; ?></td>
+        <td><?php echo $row['name']; ?></td>
         <td><?php echo $row['product_name']; ?></td>
-        
-        
         <td><?php echo $row['product_quantity']; ?></td>
         <td><?php echo $row['product_price']; ?></td>
-        <td><?php echo $row['total_price']; ?></td>
+        <td><?php echo $row['date']; ?></td>
        
+        </td>
     </tr>
     <?php
 }
+
+   
+
 
 function showEditOptionsRow($seq_no, $row)
 {

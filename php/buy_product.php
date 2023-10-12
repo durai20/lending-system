@@ -56,17 +56,23 @@ function showCustomerRow($seq_no, $row)
 {
     ?>
     <tr>
-    <td><?php echo $row['id'] ?></td>
+        <td><?php echo $row['id'] ?></td>
         <td><?php echo $row['product_name']; ?></td>
-        
-        
         <td><?php echo $row['product_quantity']; ?></td>
         <td><?php echo $row['product_price']; ?></td>
         <td><?php echo $row['total_price']; ?></td>
-       
+        <td>
+            <button class="btn btn-info btn-sm"
+            onclick="addProduct('<?php echo $row['id']; ?>', '<?php echo $row['product_name']; ?>', '<?php echo $row['product_quantity']; ?>', '<?php echo $row['product_price']; ?>');">ADD |
+                <i class="fa fa-plus"></i>
+            </button>
+        </td>
     </tr>
     <?php
 }
+
+   
+
 
 function showEditOptionsRow($seq_no, $row)
 {

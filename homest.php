@@ -93,7 +93,9 @@
             }
             
             
-            createSection2('book', 'Purchase_report.php', 'Purchase Report');
+            
+            createSection2('book', 'buy_product.php', 'Buy Product');
+            createSection2('book', 'Purchase_stud.php', 'Purchase Report');
             
 
          

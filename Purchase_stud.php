@@ -1,3 +1,15 @@
+<?php
+// Include your database connection file (config.php or similar)
+require "db_connection.php";
+session_start();
+// If the user is not logged in, redirect to the login page...
+if (!isset($_SESSION['loggedin'])) {
+    header('Location: index.php');
+    exit();
+} else {
+    $user_id = $_SESSION['login_user'];
+}
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -14,19 +26,19 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     
-    <script src="js/validateForm.js"></script>
-    <script src="js/restrict.js"></script>
+    <script src="js/validateFormst.js"></script>
+    <script src="js/restrictst.js"></script>
   </head>
   <body style="max-height: 100%;">
     <!-- including side navigations -->
-    <?php include("sections/sidenav.html"); ?>
+    <?php include("sections/sidenavst.html"); ?>
 
     <div class="container-fluid">
       <div class="container">
 
         <!-- header section -->
         <?php
-          require "php/header.php";
+          require "php/headerst.php";
           createHeader('book', 'Purchase', 'Show History');
         ?>
         <!-- header section end -->
@@ -47,9 +59,8 @@
             			<tr>
             				<th style="width: 2%;">SL.</th>
             		
-            				<th style="width: 13%;">Student Id</th>
-            				<th style="width: 13%;">Student Name</th>
-            				<th style="width: 13%;">Product Name</th>
+            			
+            		<th style="width: 13%;">Product Name</th>
                     <th style="width: 13%;">Quantity</th>
                     <th style="width: 15%;">Product Price</th>
                     <th style="width: 15%;">Date</th>
@@ -57,8 +68,8 @@
             		</thead>
             		<tbody id="customers_div">
                   <?php
-                    require 'php/show_history.php';
-                    showCustomers(0);
+                    require 'php/student_sales.php';
+                    showCustomers($user_id);
                   ?>
             		</tbody>
             	</table>
