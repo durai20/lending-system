@@ -4,8 +4,9 @@
 
 body {
   background-image: url("../images/pills2.jpg");
-  background-size: cover;
+  background-size:cover;
   background-repeat: no-repeat;
+  background-position: center;
   height: 100%;
   font-family: 'Numans', sans-serif;
 }

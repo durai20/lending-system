@@ -27,49 +27,50 @@ function edit(action) {
 function updateAdminDetails() {
   var pharmacy_name = document.getElementById('pharmacy_name');
   var address = document.getElementById('address');
-
   var email = document.getElementById('email');
   var contact_number = document.getElementById('contact_number');
   var username = document.getElementById('username');
 
-  if(!validateName(pharmacy_name.value, 'pharmacy_name_error'))
+  if (!validateName(pharmacy_name.value, 'pharmacy_name_error'))
     pharmacy_name.focus();
-  else if(!validateAddress(address.value, 'address_error'))
+  else if (!validateAddress(address.value, 'address_error'))
     address.focus();
-  else if(!notNull(email.value, 'email_error'))
+  else if (!notNull(email.value, 'email_error'))
     email.focus();
-  else if(!validateContactNumber(contact_number.value, 'contact_number_error'))
+  else if (!validateContactNumber(contact_number.value, 'contact_number_error'))
     contact_number.focus();
-  else if(!notNull(username.value, 'username_error'))
+  else if (!notNull(username.value, 'username_error'))
     username.focus();
-  else if(username.value.indexOf(' ') >= 0) {
+  else if (username.value.indexOf(' ') >= 0) {
     document.getElementById('username_error').style.display = "block";
     document.getElementById('username_error').innerHTML = "mustn't contain spaces!";
     username.focus();
-  }
-  else {
+  } else {
     var password = prompt("Please enter password below to update details!");
-    if(validatePassword(password)) {
+    if (validatePassword(password)) {
+      // Perform AJAX request to update admin details
       var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if(xhttp.readyState = 4 && xhttp.status == 200)
+      xhttp.onreadystatechange = function () {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
           document.getElementById('admin_acknowledgement').innerHTML = xhttp.responseText;
+          // Update the displayed username
+          document.getElementById('username').value = username.value;
+        }
       };
       xhttp.open("GET", "php/validateCredentials.php?action=update_admin_info&pharmacy_name=" + pharmacy_name.value + "&address=" + address.value + "&email=" + email.value + "&contact_number=" + contact_number.value + "&username=" + username.value, true);
       xhttp.send();
       edit(true);
       return true;
-    }
-    else
+    } else {
       document.getElementById('admin_acknowledgement').innerHTML = "<span class='text-danger'>Invalid Password!</span>";
-    return false;
+      return false;
+    }
   }
 }
-
 function validatePassword(password) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
-    if(xhttp.readyState = 4 && xhttp.status == 200)
+    if(xhttp.readyState == 4 && xhttp.status == 200)
       xhttp.responseText;
   };
   xhttp.open("GET", "php/validateCredentials.php?action=validate_password&password=" + password, false);
@@ -112,12 +113,12 @@ function changePassword() {
     document.getElementById('confirm_password_error').style.display = "block";
     document.getElementById('confirm_password_error').innerHTML = "password mismatch!";
     confirm_password.focus();
-  }
+  } 
   else {
     document.getElementById('confirm_password_error').style.display = "none";
     var xhttp = new XMLHttpRequest();
   	xhttp.onreadystatechange = function() {
-  		if(xhttp.readyState = 4 && xhttp.status == 200)
+  		if(xhttp.readyState == 4 && xhttp.status == 200)
   			alert(xhttp.responseText);
   	};
   	xhttp.open("GET", "php/validateCredentials.php?action=change_password&password=" + password.value, false);

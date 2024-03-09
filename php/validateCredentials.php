@@ -105,20 +105,23 @@
   if(isset($_GET['action']) && $_GET['action'] == 'update_admin_info')
     updateAdminInfo();
 
-  function updateAdminInfo() {
-    require "db_connection.php";
-    if($con) {
-      $pharmacy_name = $_GET["pharmacy_name"];
-      $address = $_GET["address"];
-      $email = $_GET["email"];
-      $contact_number = $_GET["contact_number"];
-      $username = $_GET["username"];
-
-      $query = "UPDATE admin_credentials SET PHARMACY_NAME = '$pharmacy_name', ADDRESS = '$address', EMAIL = '$email', CONTACT_NUMBER = '$contact_number', USERNAME = '$username'";
-      $result = mysqli_query($con, $query);
-      echo ($result) ? "Details updated..." : "Oops! Somthing wrong happend...";
+    function updateAdminInfo() {
+      require "db_connection.php";
+      if ($con) {
+        $pharmacy_name = $_GET["pharmacy_name"];
+        $address = $_GET["address"];
+        $email = $_GET["email"];
+        $contact_number = $_GET["contact_number"];
+        $username = $_GET["username"];
+    
+        // Add WHERE clause to specify which admin's details to update
+        $query = "UPDATE admin_credentials SET PHARMACY_NAME = '$pharmacy_name', ADDRESS = '$address', EMAIL = '$email', CONTACT_NUMBER = '$contact_number', USERNAME = '$username' WHERE USERNAME = '$username'";
+        
+        $result = mysqli_query($con, $query);
+        echo ($result) ? "Details updated..." : "Oops! Something wrong happened...";
+      }
     }
-  }
+    
 
   if(isset($_GET['action']) && $_GET['action'] == 'change_password')
     changePassword();

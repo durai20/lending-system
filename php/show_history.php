@@ -34,6 +34,24 @@ if ($con) {
     }
 }
 
+function getPurchaseHistoryData() {
+    require "db_connection.php";
+    $data = array();
+    
+    if ($con) {
+        $query = "SELECT * FROM purchase_history";
+        $result = mysqli_query($con, $query);
+
+        while ($row = mysqli_fetch_array($result)) {
+            $data[] = $row;
+        }
+    }
+
+    return $data;
+}
+
+
+
 function showCustomers($id)
 {
     require "db_connection.php";
@@ -120,5 +138,6 @@ function updatePurchase($id, $product_name, $product_quantity, $price)
         showCustomers(0);
     }
 }
+
 
 

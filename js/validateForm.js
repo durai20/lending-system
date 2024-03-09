@@ -42,7 +42,7 @@ function validateContactNumber(contact_number, error) {
 
 function validatePassword(password, error) {
   var result = document.getElementById(error);
-  result.style.display = "block";
+  // result.style.display = "block";
   if (password.length < 8) {
     result.innerHTML = "Password must contain at least 8 characters!";
     return false;

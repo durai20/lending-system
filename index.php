@@ -8,8 +8,8 @@
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
           integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <link rel="shortcut icon" href="images/icon.svg" type="image/x-icon">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="shortcut icon" href="images/logo2.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="css/index.css"> 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.24/sweetalert2.all.js"></script>
 </head>
@@ -19,7 +19,7 @@
         <div class="card-body">
             <form id="login-form" class="login-form" action="log.php" method="POST">
                 <div class="logo">
-                    <img src="images/prof.jpg" class="profile"/>
+                    <img src="images/logo2.jpg" class="profile"/>
                     <h1 class="logo-caption"><span class="tweak">L</span>ogin</h1>
                 </div> <!-- logo class -->
                 <div class="input-group form-group">

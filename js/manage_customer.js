@@ -61,13 +61,21 @@ function cancel() {
 }
 
 function searchCustomer(text) {
-  var xhttp = new XMLHttpRequest();
-  var searchText = document.getElementById("searchInput").value;
-  xhttp.onreadystatechange = function() {
-    if (xhttp.readyState == 4 && xhttp.status == 200) {
-      document.getElementById('customers_div').innerHTML = xhttp.responseText;
-    }
-  };
-  xhttp.open("GET", "search_customer.php?action=search&text=" + searchText, true);
-  xhttp.send();
+  var searchText = document.getElementById("searchInput").value.trim();
+
+  // Check if the search input is empty
+  if (searchText === "") {
+    // If empty, show all data
+    showCustomers(0);
+  } else {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+        console.log(xhttp.responseText); // Log the response text
+        document.getElementById('customers_div').innerHTML = xhttp.responseText;
+      }
+    };
+    xhttp.open("GET", "search_customer.php?action=search&text=" + searchText, true);
+    xhttp.send();
+  }
 }
